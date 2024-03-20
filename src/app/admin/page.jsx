@@ -12,7 +12,7 @@ async function getProducts() {
     const products = await getProductsAction()
     return products;
   } catch (e) {
-    alert(e)
+    console.log(e)
   }
 }
 

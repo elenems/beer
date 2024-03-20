@@ -11,7 +11,7 @@ async function getUsers() {
     const { data } = await getUsersAction();
     return data;
   } catch (e) {
-    alert(e)
+    console.log(e)
   }
 }
 
