@@ -1,15 +1,13 @@
 'use server'
-import { API_URL } from "@/config";
-import { authFetch } from "../fetch";
+import { sql } from '@vercel/postgres';
 
 export const deleteProduct = async (productId) => {
   try {
-    const response = await authFetch(
-      `/products/${productId}`,
-      'DELETE',
-    );
-    const { message } = await response.json();
-    return message;
+    await sql`
+      DELETE FROM products
+      WHERE id = ${productId}
+    `;
+    return 'Product deleted successfuly';
   } catch (e) {
     throw e;
   }
@@ -17,16 +15,12 @@ export const deleteProduct = async (productId) => {
 
 export const updateProduct = async ({ id, ...args }) => {
   try {
-    const response = await authFetch(
-      `/products/${id}`,
-      'PUT',
-      {
-        'Content-Type': 'application/json',
-      },
-      JSON.stringify({ ...args }),
-    );
-    const { message } = await response.json();
-    return message;
+    await sql`
+      UPDATE products
+      SET ${sql(args, 'title', 'description', 'price')}
+      WHERE id = ${id}
+    `;
+    return 'Product updated successfully';
   } catch (e) {
     throw e;
   }
@@ -34,36 +28,35 @@ export const updateProduct = async ({ id, ...args }) => {
 
 export const addProduct = async ({ ...args }) => {
   try {
-    const response = await authFetch(
-      '/products',
-      'POST',
-      {
-        'Content-Type': 'application/json',
-      },
-      JSON.stringify({ ...args }),
-    );
-    const { message } = await response.json();
-    return message
+    await sql`
+      INSERT INTO products ${sql(args, 'title', 'description', 'price')}
+    `;
+    return 'Product added successfully';
   } catch (e) {
-    throw e
+    throw e;
   }
 };
 
 export const getProducts = async () => {
   try {
-    const products = await fetch(`${API_URL}/products`)
-    return products.json()
+    const products = await sql`
+      SELECT * FROM products
+    `;
+    return products;
   } catch (e) {
-    throw e
+    throw e;
   }
 }
 
 export const toggleIsStar = async (id, value) => {
   try {
-    const response = await authFetch(`/products/star/${id}?value=${value}`, 'POST')
-    const { message } = await response.json();
-    return message
+    await sql`
+      UPDATE products
+      SET is_star = ${value}
+      WHERE id = ${id}
+    `;
+    return 'Toggle is_star successful';
   } catch (e) {
-    throw e
+    throw e;
   }
 }

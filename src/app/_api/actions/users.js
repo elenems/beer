@@ -1,11 +1,19 @@
 'use server';
+import { sql } from '@vercel/postgres';
+import bcrypt from 'bcrypt'
 
-import { authFetch } from "../fetch"
+async function encryptPassword(password) {
+  let password_hash = ''
+  if(password) {
+    password_hash = await bcrypt.hash(password, 10)
+  }
+  return password_hash
+}
 
 export const getUsers = async () => {
   try {
-    const users = await authFetch(`/users`)
-    return users.json()
+    const { rows } = await sql`SELECT * from users`;
+    return rows
   } catch (e) {
     throw e
   }
@@ -13,16 +21,18 @@ export const getUsers = async () => {
 
 export const updateUser = async ({ name, password, userId }) => {
   try {
-    const response = await authFetch(
-      `/users/${userId}`,
-      'PUT',
-      {
-        'Content-Type': 'application/json',
-      },
-      JSON.stringify({ name, password }),
-    );
-    const { message } = await response.json();
-    return message;
+    const password_hash = await encryptPassword(password);
+    name && await sql`
+      UPDATE users
+      SET username = ${name}
+      WHERE id = ${userId};
+    `;
+    password_hash && await sql`
+      UPDATE users
+      SET password_hash = ${password_hash}
+      WHERE id = ${userId};
+    `;
+    return 'User updated successfully';
   } catch (e) {
     throw e;
   }
@@ -30,30 +40,27 @@ export const updateUser = async ({ name, password, userId }) => {
 
 export const addUser = async ({ name, password }) => {
   try {
-    const response = await authFetch(
-      '/users',
-      'POST',
-      {
-        'Content-Type': 'application/json',
-      },
-      JSON.stringify({ name, password }),
-    );
-    const { message } = await response.json();
-    return message
+    const password_hash = await encryptPassword(password);
+    
+    await sql`
+      INSERT INTO users (username, password_hash, user_role)
+      VALUES (${name}, ${password_hash}, 2)
+    `;
+    
+    return 'User added successfully';
   } catch (e) {
-    throw e
+    throw e;
   }
 };
 
 export const deleteUser = async (id) => {
   try {
-    const response = await authFetch(
-      `/users/${id}`,
-      'DELETE',
-    );
-    const { message } = await response.json();
-    return message
+    await sql`
+      DELETE FROM users
+      WHERE id = ${id};
+    `;
+    return 'User deleted successfully';
   } catch (e) {
-    throw e
+    throw e;
   }
 };

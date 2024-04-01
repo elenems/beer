@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 async function login(e, username, password, callback) {
   e.preventDefault();
   try {
-    await loginAction(username, password);
+    const response = await loginAction(username, password);
     callback()
   } catch (e) {
     alert(e)

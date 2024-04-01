@@ -8,8 +8,8 @@ import DeleteUserConfirm from '@/components/DeleteUserConfirm/DeleteUserConfirm'
 
 async function getUsers() {
   try {
-    const { data } = await getUsersAction();
-    return data;
+    const users = await getUsersAction();
+    return users;
   } catch (e) {
     console.log(e)
   }
@@ -35,9 +35,9 @@ export default async function page() {
             key={user.id}
           >
             <ListItemText primary="Ім'я" secondary={user.username} />
-            <ListItemText primary="Роль" secondary={USERS_MAP[user.userRole]} />
+            <ListItemText primary="Роль" secondary={USERS_MAP[user.user_role]} />
             <Box sx={{ display: 'flex' }}>
-              {user.userRole !== 1 && (
+              {user.user_role !== 1 && (
                 <Box sx={{ marginRight: '0.5rem' }}>
                   <Modal actionText="Видалити">
                     <DeleteUserConfirm id={user.id} />
