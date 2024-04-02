@@ -11,9 +11,8 @@ import { useRouter } from 'next/navigation';
 
 async function starProduct(id, value, router) {
   try {
-    const message = await toggleIsStar(id, value)
+    await toggleIsStar(id, value)
     router.refresh();
-    alert(message)
   } catch (e) {
     alert(e)
   }
@@ -51,11 +50,11 @@ const ProductsList = ({ products }) => {
               <Box gap={2} sx={{ flexDirection: 'row', display: 'flex' }}>
                 <Typography variant="body2">Price: {product.price}</Typography>
                 <Typography variant="body2">
-                  Specail price: {product.specialPrice}
+                  Specail price: {product.specialprice}
                 </Typography>
               </Box>
               <Typography variant="body2">
-                Package Type: {product.packageType}
+                Package Type: {product.packagetype}
               </Typography>
               <Box gap={2} sx={{ flexDirection: 'row', display: 'flex' }}>
                 <Typography variant="body2">
@@ -103,10 +102,10 @@ const ProductsList = ({ products }) => {
                   sx={{ marginX: '0.5rem' }}
                   variant="contained"
                   onClick={() =>
-                    starProduct(product.id, +!product.isStar, router)
+                    starProduct(product.id, +!product.isstar, router)
                   }
                 >
-                  {Boolean(product.isStar) ? <StarIcon /> : <StarBorderIcon />}
+                  {Boolean(product.isstar) ? <StarIcon /> : <StarBorderIcon />}
                 </Button>
               </Box>
             </Grid>

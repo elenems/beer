@@ -54,14 +54,14 @@ function updateProduct({ id, ...args }) {
   })
 }
 
-function setIsStar(id, isStar) {
+function setIsStar(id, isstar) {
   return new Promise((resolve, reject) => {
     db.query(
-      'UPDATE products SET isStar = ? WHERE id = ?',
-      [isStar, id],
+      'UPDATE products SET isstar = ? WHERE id = ?',
+      [isstar, id],
       (e) => {
         if (e) reject(e);
-        resolve({ message: isStar ? `Product added to favoutires` : 'Product removed from favourites' });
+        resolve({ message: isstar ? `Product added to favoutires` : 'Product removed from favourites' });
       },
     );
   })

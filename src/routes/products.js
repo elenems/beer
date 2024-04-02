@@ -44,12 +44,12 @@ router.delete('/:id', async (req, res) => {
 router.put(
   '/:id',
   [
-    ...['name', 'description', 'packageType', 'color', 'ingredients'].map(
+    ...['name', 'description', 'packagetype', 'color', 'ingredients'].map(
       (textField) => body(textField).isLength({ min: 1 }).trim().escape(),
     ),
     ...[
       'price',
-      'specialPrice',
+      'specialprice',
       'alcohol',
       'ibu',
       'og',
@@ -74,8 +74,8 @@ router.post('/star/:id', async (req, res) => {
   try {
     const { value } = req.query;
     console.log(typeof value, ' val')
-    const isStar = +value
-    const message = await toggleStarProductById(req.params.id, isStar)
+    const isstar = +value
+    const message = await toggleStarProductById(req.params.id, isstar)
     return res.status(200).json({ message });
   } catch(e) {
     return res.status(400).json({ message: e, error: e });

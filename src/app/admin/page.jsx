@@ -18,7 +18,6 @@ async function getProducts() {
 
 export default async function Admin() {
   const products = await getProducts();
-
   return (
     <Box>
       <Modal actionText="Додати продукт">
@@ -28,7 +27,7 @@ export default async function Admin() {
       <Typography variant="h4" sx={{ marginY: '1rem' }}>
         Продукти
       </Typography>
-      <ProductsList products={products?.data} />
+      <ProductsList products={products} />
     </Box>
   );
 }

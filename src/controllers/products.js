@@ -40,10 +40,10 @@ async function deleteProductById(id){
   }
 }
 
-async function toggleStarProductById(id, isStar) {
+async function toggleStarProductById(id, isstar) {
   const sanitizedId = validator.escape(id);
   try {
-    const { message } = await setIsStar(sanitizedId, isStar);
+    const { message } = await setIsStar(sanitizedId, isstar);
     return message
   } catch(e) {
     throw e;

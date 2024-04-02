@@ -10,7 +10,7 @@ const actions = {
   'POST': addProductAction
 }
 
-const addProduct = async (e, method = 'POST', { ...args }, setOpen, router) => {
+const addProduct = async (e, method = 'POST', { id, ...args }, setOpen, router) => {
   e.preventDefault();
   if (Object.values(args).some((arg) => !arg)) {
     alert('Заповніть всі поля!');
@@ -20,13 +20,13 @@ const addProduct = async (e, method = 'POST', { ...args }, setOpen, router) => {
   try {
     const message = await actions[method]({
       ...args,
+      id
     });
     router.refresh();
     alert(message);
     setOpen(false)
   } catch (e) {
     alert(e)
-    // callback(e)
   }
 };
 
@@ -37,8 +37,8 @@ const ProductForm = ({ data, method="POST", actionText="Відправити" })
     name: data?.name || '',
     description: data?.description || '',
     price: data?.price || 0,
-    specialPrice: data?.specialPrice || 0,
-    packageType: data?.packageType || '',
+    specialprice: data?.specialprice || 0,
+    packagetype: data?.packagetype || '',
     alcohol: data?.alcohol || 0,
     ibu: data?.ibu || 0,
     og: data?.og || 0,
@@ -52,7 +52,6 @@ const ProductForm = ({ data, method="POST", actionText="Відправити" })
   });
   
   const handleChange = (e) => {
-    console.log(e.target.name)
     setProduct({
       ...product,
       [e.target.name]: e.target.value,
@@ -104,15 +103,15 @@ const ProductForm = ({ data, method="POST", actionText="Відправити" })
         <TextField
           label="Special Price"
           type="number"
-          name="specialPrice"
+          name="specialprice"
           InputProps={{ inputProps: { step: '0.01' } }}
-          value={product.specialPrice}
+          value={product.specialprice}
           onChange={handleChange}
         />
         <TextField
           label="Package Type"
-          name="packageType"
-          value={product.packageType}
+          name="packagetype"
+          value={product.packagetype}
           onChange={handleChange}
         />
         <TextField
