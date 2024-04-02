@@ -1,5 +1,7 @@
 import { Inter } from "next/font/google";
 
+export const fetchCache = 'force-no-store'
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
