@@ -54,7 +54,7 @@ router.put(
       'ibu',
       'og',
       'hoppyness',
-      'bitternes',
+      'bitterness',
       'sweetness',
       'sourness',
       'maltiness',

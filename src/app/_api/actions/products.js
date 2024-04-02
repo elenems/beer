@@ -24,7 +24,7 @@ export const updateProduct = async ({ id, ...args }) => {
     ibu,
     og,
     hoppyness,
-    bitternes,
+    bitterness,
     sweetness,
     sourness,
     maltiness,
@@ -35,7 +35,7 @@ export const updateProduct = async ({ id, ...args }) => {
   try {
     await sql`
       UPDATE products
-      SET name = ${name}, description = ${description}, price = ${price}, specialprice = ${specialprice}, packagetype = ${packagetype}, alcohol = ${alcohol}, ibu = ${ibu}, og = ${og}, hoppyness = ${hoppyness}, bitterness = ${bitternes}, sweetness = ${sweetness}, sourness = ${sourness}, maltiness = ${maltiness}, color = ${color}, ingredients = ${ingredients}
+      SET name = ${name}, description = ${description}, price = ${price}, specialprice = ${specialprice}, packagetype = ${packagetype}, alcohol = ${alcohol}, ibu = ${ibu}, og = ${og}, hoppyness = ${hoppyness}, bitterness = ${bitterness}, sweetness = ${sweetness}, sourness = ${sourness}, maltiness = ${maltiness}, color = ${color}, ingredients = ${ingredients}
       WHERE id = ${id}
     `;
     return 'Product updated successfully';
@@ -55,7 +55,7 @@ export const addProduct = async ({ ...args }) => {
     ibu,
     og,
     hoppyness,
-    bitternes,
+    bitterness,
     sweetness,
     sourness,
     maltiness,
@@ -66,7 +66,7 @@ export const addProduct = async ({ ...args }) => {
   try {
     await sql`
     INSERT INTO products (name, description, price, specialprice, packagetype, alcohol, ibu, og, hoppyness, bitterness, sweetness, sourness, maltiness, color, ingredients)
-    VALUES (${name}, ${description}, ${price}, ${specialprice}, ${packagetype}, ${alcohol}, ${ibu}, ${og}, ${hoppyness}, ${bitternes}, ${sweetness}, ${sourness}, ${maltiness}, ${color}, ${ingredients})
+    VALUES (${name}, ${description}, ${price}, ${specialprice}, ${packagetype}, ${alcohol}, ${ibu}, ${og}, ${hoppyness}, ${bitterness}, ${sweetness}, ${sourness}, ${maltiness}, ${color}, ${ingredients})
   `;
     return 'Product added successfully';
   } catch (e) {

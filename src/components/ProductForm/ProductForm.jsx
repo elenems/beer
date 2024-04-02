@@ -43,7 +43,7 @@ const ProductForm = ({ data, method="POST", actionText="Відправити" })
     ibu: data?.ibu || 0,
     og: data?.og || 0,
     hoppyness: data?.hoppyness || 0,
-    bitternes: data?.bitternes || 0,
+    bitterness: data?.bitterness || 0,
     sweetness: data?.sweetness || 0,
     sourness: data?.sourness || 0,
     maltiness: data?.maltiness || 0,
@@ -144,8 +144,8 @@ const ProductForm = ({ data, method="POST", actionText="Відправити" })
         />
         <TextField
           label="Bitternes"
-          name="bitternes"
-          value={product.bitternes}
+          name="bitterness"
+          value={product.bitterness}
           onChange={handleChange}
           type="number"
         />
